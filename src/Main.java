@@ -35,6 +35,7 @@ public class Main {
             preparedStatement.setInt(6, tId);
             preparedStatement.setInt(7, roomNum);
             preparedStatement.setInt(8, mId);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
