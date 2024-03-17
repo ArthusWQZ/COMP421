@@ -11,8 +11,8 @@ public class Main {
 
     public static int getColumnMaxValue(String colName, String tableName) throws SQLException {
         String queryString = q.selectMaxValue;
-        queryString.replace("colName", colName);
-        queryString.replace("tableName", tableName);
+        queryString = queryString.replace("colName", colName);
+        queryString = queryString.replace("tableName", tableName);
         System.out.println("getLatestPrimaryKey");
         ResultSet rs = statement.executeQuery(queryString);
         if(rs.next()){
@@ -48,7 +48,7 @@ public class Main {
         int i = getColumnMaxValue("sId", "sessions");
         System.out.println("latest: " + i);
         insertSessions("2024-02-15", "15:00", "FR", "yes", 1, 3, 15);
-        
+
 
         statement.close();
         con.close();
