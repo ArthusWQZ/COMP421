@@ -12,14 +12,19 @@ public class Main {
     public static int getColumnMaxValue(String colName, String tableName) throws SQLException {
         String s = q.getLatestPk;
         s.replace("colName", colName);
-        s.replace("tableName", tableName)
+        s.replace("tableName", tableName);
 //        PreparedStatement statement = con.prepareStatement(s);
 //        statement.setString(1, pkName);
 //        statement.setString(2, tableName);
 //        java.sql.ResultSet rs = statement.executeQuery();
         System.out.println("getLatestPrimaryKey");
         ResultSet rs = statement.executeQuery(s);
-        return rs.getInt(1);
+        if(rs.next()){
+            return rs.getInt(1);
+        }
+        else {
+            return -1;
+        }
     }
 //    public static void insertSessions(String date, String time, String lang, String sub, int tId, int roomNum, int mId){
 //
