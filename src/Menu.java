@@ -31,8 +31,7 @@ public class Menu {
         case "1":
           break;
         case "2":
-          Integer sessionID = input.nextInt();
-          DeleteUnsoldTickets.execute(aStatement, sessionID);
+          DeleteUnsoldTickets.execute(aStatement);
           break;
         case "3":
           break;
