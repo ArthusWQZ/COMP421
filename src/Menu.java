@@ -14,7 +14,7 @@ public class Menu {
     String option = null;
     Scanner input = new Scanner(System.in);
     do {
-      option = scan.nextLine();
+      option = input.nextLine();
       switch (option) {
         case "1":
           break;
@@ -29,7 +29,7 @@ public class Menu {
         case "6":
           break;
       }
-    while (!option.equals("7"))
-    }
+
+    } while (!option.equals("7"));
   }
 }
