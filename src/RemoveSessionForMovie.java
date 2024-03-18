@@ -28,7 +28,7 @@ public class RemoveSessionForMovie {
     private static HashMap loadMovieList(Statement pStatement) throws SQLException {
         String querySQL = "SELECT mid, movie_name FROM movie";
         ResultSet rs = pStatement.executeQuery(querySQL);
-        HashMap<Integer, String> movieList = new HashMap();
+        HashMap<Integer, String> movieList = new HashMap<Integer, String>();
         while (rs.next()) {
             movieList.put(rs.getInt(1), rs.getString(2));
         }
