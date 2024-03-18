@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DeleteUnsoldTickets {
-    public static void execute(Statement pStatement) throws SQLException {
+    public static void execute(Statement pStatement) throws SQLException{
 
         int sessionID = getSessionID(pStatement);
 
@@ -51,16 +51,22 @@ public class DeleteUnsoldTickets {
     }
 
     private static void printRemainingTickets(Statement pStatement, int sessionID) throws SQLException {
-        String querySQL = "SELECT barcode, sID, cID FROM Ticket WHERE sID = " + sessionID;
-        java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
-        System.out.println("\n=========Session " + sessionID + " tickets sold=========\n");
-        System.out.println("Barcode       |sID| cID \n________________________");
-        while (rs.next()) {
-            String barcode = rs.getString(1);
-            int sid = rs.getInt(2);
-            int cid = rs.getInt(3);
+        try {
+            String querySQL = "SELECT barcode, sID, cID FROM Ticket WHERE sID = " + sessionID;
+            java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
+            System.out.println("\n=========Session " + sessionID + " tickets sold=========\n");
+            System.out.println("Barcode       |sID| cID \n________________________");
+            while (rs.next()) {
+                String barcode = rs.getString(1);
+                int sid = rs.getInt(2);
+                int cid = rs.getInt(3);
 
-            System.out.println(barcode + " | " + sid + " | " + cid);
+                System.out.println(barcode + " | " + sid + " | " + cid);
+            }
+        }
+        catch (SQLException e){
+            System.out.println("ERROR: An error occurred when fetching barcode, sID, cID from the Ticket table.");
+            return;
         }
     }
 
@@ -68,7 +74,7 @@ public class DeleteUnsoldTickets {
         Scanner input = new Scanner(System.in);
         String querySQL = "SELECT DISTINCT sId FROM ticket ORDER BY sId";
         java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
-        System.out.println("Here is the list of existing session IDs");
+        System.out.println("=========Session IDs=========");
         StringBuilder id = new StringBuilder("| ");
         while (rs.next()) {
             int sid = rs.getInt(1);
