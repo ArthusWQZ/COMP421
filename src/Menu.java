@@ -1,7 +1,18 @@
 import java.util.Scanner;
+import java.sql.*;
 
 public class Menu {
-  public static void main(String[] args) {
+
+  Connection aCon;
+  Statement aStatement;
+
+  public Menu(Connection pCon, Statement pStatement)
+  {
+    aCon = pCon;
+    aStatement = pStatement;
+  }
+
+  public void enterMenuLoop() {
     String option;
     Scanner input = new Scanner(System.in);
 
