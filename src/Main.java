@@ -1,6 +1,6 @@
 import java.sql.* ;
 
-class simpleJDBC
+class Main
 {
     public static void main ( String [ ] args ) throws SQLException
     {
@@ -40,6 +40,7 @@ class simpleJDBC
         Connection con = DriverManager.getConnection (url,your_userid,your_password) ;
         Statement statement = con.createStatement ( ) ;
 
+        /*
         // Creating a table
         try
         {
@@ -139,6 +140,12 @@ class simpleJDBC
             System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
             System.out.println(e);
         }
+
+         */
+
+        // Create a new Menu
+        Menu menu = new Menu(con, statement);
+        menu.enterMenuLoop();
 
         // Finally but importantly close the statement and connection
         statement.close ( ) ;
