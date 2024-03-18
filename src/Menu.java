@@ -34,6 +34,7 @@ public class Menu {
         case "2":
           break;
         case "3":
+          CreateMovie.execute(aCon, aStatement);
           break;
         case "4":
           RemoveSessionForMovie.execute(aStatement);

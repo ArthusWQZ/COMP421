@@ -4,7 +4,6 @@ import java.sql.* ;
 import java.util.Scanner;
 
 public class CreateSession {
-//    public static void execute(Connection pCon, int sid, String date, String time, String lang, String sub, int tId, int roomNum, int mId){
     public static void insertSessions(Connection pCon, int sid, Date date, String time, String lang, String sub, int tid, int roomNum, int mid) throws SQLException {
         String queryString = "INSERT INTO sessions VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = pCon.prepareStatement(queryString);
@@ -49,22 +48,23 @@ public class CreateSession {
             System.out.println("ERROR: Invalid input");
             return;
         }
+
         // confirm input
-        System.out.println("Create new session for: ");
+        System.out.println("Create a new session for: ");
         System.out.println("date: " + date + ", time: " + time + ", lang: " + lang + ", sub: " + sub + ", tid: " + tid + ", room number: " + roomNum + ", mid: " + mid);
         System.out.println("Confirm? (yes/no) ");
         String confirm = input.nextLine();
 
         // execute
         if(confirm.equals("yes")){
-            int sid = GetColumnMaxValue.execute(pStatement, "sId", "sessions");
+            int sid = 1 + GetColumnMaxValue.execute(pStatement, "sid", "sessions");
             try {
-                insertSessions(pCon, sid+1, date, time, lang, sub, tid, roomNum, mid);
+                insertSessions(pCon, sid, date, time, lang, sub, tid, roomNum, mid);
             } catch (SQLException e) {
                 System.out.println("ERROR: An error occurred when creating the session.");
                 return;
             }
-            System.out.println("Success!");
+            System.out.println("Success! - sid of the created session: " + sid);
         }
     }
 }
