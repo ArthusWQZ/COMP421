@@ -58,7 +58,7 @@ public class CreateMovie {
                 System.out.println("ERROR: An error occurred when creating the movie.");
                 return;
             }
-            System.out.println("Success! - sid of the created session: " + mid);
+            System.out.println("Success! - mid of the created movie: " + mid);
         }
     }
 }
