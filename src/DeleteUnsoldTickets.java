@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -5,7 +6,10 @@ import java.sql.Statement;
 public class DeleteUnsoldTickets {
     public static void execute(Statement pStatement) throws SQLException{
 
-        int sessionID = getSessionID(pStatement);
+        int sessionID = 0;
+        while (sessionID == 0) {
+            sessionID = getSessionID(pStatement, sessionID);
+        }
 
         if (checkSessionExist(pStatement, sessionID)) {
             try {
@@ -20,11 +24,9 @@ public class DeleteUnsoldTickets {
 
             } catch (SQLException e) {
                 System.out.println("ERROR: An error occurred when deleting the tickets from session " + sessionID);
-                return;
             }
         } else {
             System.out.println("ERROR: Session ID " + sessionID + " does not exist");
-            return;
         }
     }
 
@@ -66,7 +68,7 @@ public class DeleteUnsoldTickets {
         }
     }
 
-    private static int getSessionID(Statement pStatement) throws SQLException {
+    private static int getSessionID(Statement pStatement, int sessionID) throws SQLException {
         Scanner input = new Scanner(System.in);
         String querySQL = "SELECT DISTINCT sId FROM ticket ORDER BY sId";
         java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
@@ -77,8 +79,13 @@ public class DeleteUnsoldTickets {
             id.append(sid + " | ");
         }
         System.out.println(id);
-        System.out.println("Please enter the ID of the session you want to remove the tickets from:");
-        Integer sessionID = input.nextInt();
-        return sessionID;
-    }
+        System.out.println("Please enter the ID of the session you want to remove the unsold tickets from:");
+        try {
+            sessionID = input.nextInt();
+            return sessionID;
+        } catch (InputMismatchException e) {
+            System.out.println("ERROR: Invalid format for the session id.");
+            return 0;
+        }
+   }
 }
