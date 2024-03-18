@@ -21,15 +21,11 @@ public class DeleteUnsoldTickets {
             } catch (SQLException e) {
                 System.out.println("ERROR: An error occurred when deleting the tickets from session " + sessionID);
                 return;
-            } finally {
-                pStatement.close();
             }
         } else {
-            pStatement.close();
             System.out.println("ERROR: Session ID " + sessionID + " does not exist");
             return;
         }
-
     }
 
     private static boolean checkSessionExist(Statement pStatement, int sessionID) throws SQLException{
