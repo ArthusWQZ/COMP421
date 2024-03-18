@@ -29,6 +29,7 @@ public class Menu {
       option = input.nextLine();
       switch (option) {
         case "1":
+          CreateSession.execute(aCon, aStatement);
           break;
         case "2":
           break;
