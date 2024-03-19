@@ -26,7 +26,7 @@ class Main
         String your_userid = null;
         String your_password = null;
         //AS AN ALTERNATIVE, you can just set your password in the shell environment in the Unix (as shown below) and read it from there.
-        //$  export SOCSPASSWD=yoursocspasswd 
+        //$  export SOCSPASSWD=yoursocspasswd
         if(your_userid == null && (your_userid = System.getenv("SOCSUSER")) == null)
         {
             System.err.println("Error!! do not have a password to connect to the database!");
