@@ -38,8 +38,8 @@ public class PriceIncrease {
             increasePrice(pStatement, pi);
         }
         catch (SQLException e) {
-            sqlCode = e.getErrorCode(); // Get SQLCODE
-            sqlState = e.getSQLState(); // Get SQLSTATE
+            int sqlCode = e.getErrorCode(); // Get SQLCODE
+            String sqlState = e.getSQLState(); // Get SQLSTATE
 
             System.out.println("There was an error updating the price");
             System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
