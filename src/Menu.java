@@ -12,7 +12,7 @@ public class Menu {
     aStatement = pStatement;
   }
 
-  public void enterMenuLoop() {
+  public void enterMenuLoop() throws SQLException {
     String option;
     Scanner input = new Scanner(System.in);
 
@@ -42,6 +42,7 @@ public class Menu {
         case "5":
           break;
         case "6":
+          PriceIncrease.execute(aStatement);
           break;
       }
 

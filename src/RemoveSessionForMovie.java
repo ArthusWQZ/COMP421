@@ -54,6 +54,12 @@ public class RemoveSessionForMovie {
         pStatement.executeUpdate(deleteSQL);
     }
 
+    private static void deleteTicketsForSession(Statement pStatement, int pSid) throws SQLException
+    {
+        String deleteSQL = "DELETE FROM ticket WHERE sid = " + pSid;
+        pStatement.executeUpdate(deleteSQL);
+    }
+
     public static void execute(Statement pStatement)
     {
 
@@ -63,6 +69,9 @@ public class RemoveSessionForMovie {
         catch (SQLException e)
         {
             System.out.println("ERROR: An error occurred when fetching the theater list.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
             return;
         }
 
@@ -87,6 +96,9 @@ public class RemoveSessionForMovie {
         {
             System.out.println("ERROR: An error occurred when fetching the projection room list.");
             System.out.println("Double check the given theater id.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
             return;
         }
 
@@ -109,6 +121,9 @@ public class RemoveSessionForMovie {
         {
             System.out.println("ERROR: An error occurred when fetching the session list.");
             System.out.println("Double check the room number.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
             return;
         }
 
@@ -125,12 +140,27 @@ public class RemoveSessionForMovie {
         }
 
         try {
+            deleteTicketsForSession(pStatement, sid);
+        }
+        catch (SQLException e)
+        {
+            System.out.println("ERROR: An error occurred when removing the tickets associated to this session.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
+            return;
+        }
+
+        try {
             deleteSession(pStatement, sid);
         }
         catch (SQLException e)
         {
             System.out.println("ERROR: An error occurred when removing the session.");
             System.out.println("Double check the session ID.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
             return;
         }
 
