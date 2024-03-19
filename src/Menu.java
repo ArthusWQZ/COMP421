@@ -32,6 +32,7 @@ public class Menu {
           CreateSession.execute(aCon, aStatement);
           break;
         case "2":
+          DeleteUnsoldTickets.execute(aStatement);
           break;
         case "3":
           CreateMovie.execute(aCon, aStatement);
