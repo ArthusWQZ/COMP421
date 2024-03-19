@@ -31,6 +31,7 @@ public class Menu {
         case "1":
           break;
         case "2":
+          DeleteUnsoldTickets.execute(aStatement);
           break;
         case "3":
           break;
