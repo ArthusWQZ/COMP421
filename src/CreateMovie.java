@@ -56,6 +56,9 @@ public class CreateMovie {
                 insertMovie(pCon, mid, name, duration, genre, rating, date);
             }  catch (SQLException e) {
                 System.out.println("ERROR: An error occurred when creating the movie.");
+                int sqlCode = e.getErrorCode();
+                String sqlState = e.getSQLState();
+                System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
                 return;
             }
             System.out.println("Success! - mid of the created movie: " + mid);

@@ -62,6 +62,9 @@ public class CreateSession {
                 insertSessions(pCon, sid, date, time, lang, sub, tid, roomNum, mid);
             } catch (SQLException e) {
                 System.out.println("ERROR: An error occurred when creating the session.");
+                int sqlCode = e.getErrorCode();
+                String sqlState = e.getSQLState();
+                System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
                 return;
             }
             System.out.println("Success! - sid of the created session: " + sid);
