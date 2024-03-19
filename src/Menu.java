@@ -12,7 +12,7 @@ public class Menu {
     aStatement = pStatement;
   }
 
-  public void enterMenuLoop() throws SQLException{
+  public void enterMenuLoop() throws SQLException {
     String option;
     Scanner input = new Scanner(System.in);
 
