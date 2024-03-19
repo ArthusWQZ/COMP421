@@ -39,6 +39,7 @@ public class Menu {
         case "5":
           break;
         case "6":
+          PriceIncrease.execute(aStatement);
           break;
       }
 
