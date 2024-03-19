@@ -16,7 +16,7 @@ public class PriceIncrease {
         }
     }
 
-    public static void execute(Statement pStatemnet) {
+    public static void execute(Statement pStatement) {
 
         System.out.println("By how much should the price for consumables be increased? \n>");
         String option;
