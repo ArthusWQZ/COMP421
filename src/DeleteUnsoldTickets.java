@@ -1,38 +1,52 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DeleteUnsoldTickets {
     public static void execute(Statement pStatement) throws SQLException{
-
+        Scanner input = new Scanner(System.in);
         int sessionID = 0;
-        while (sessionID == 0) {
-            sessionID = getSessionID(pStatement, sessionID);
-        }
 
-        if (checkSessionExist(pStatement, sessionID)) {
+        while (sessionID==0) {
+            printSessionIDs(pStatement);
+            String option = input.nextLine();
+            if (option.equalsIgnoreCase("q")) return;
             try {
-                String updateSQL = "DELETE FROM Ticket WHERE sId = " + sessionID + " AND cId IS NULL";
-                System.out.println(updateSQL);
-                pStatement.executeUpdate(updateSQL);
-
-                System.out.println();
-                System.out.println("Unsold tickets removed");
-
-                printRemainingTickets(pStatement, sessionID);
-
-            } catch (SQLException e) {
-                System.out.println("ERROR: An error occurred when deleting the tickets from session " + sessionID);
+                sessionID = Integer.parseInt(option);
+                if(!checkSessionExist(pStatement, sessionID)){
+                    System.out.println("ERROR: Session ID " + sessionID + " does not exist");
+                    sessionID = 0;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Invalid format for the session id.");
             }
-        } else {
-            System.out.println("ERROR: Session ID " + sessionID + " does not exist");
         }
+
+        try {
+            String updateSQL = "DELETE FROM Ticket WHERE sId = " + sessionID + " AND cId IS NULL";
+            System.out.println(updateSQL);
+            pStatement.executeUpdate(updateSQL);
+
+            System.out.println();
+
+            printRemainingTickets(pStatement, sessionID);
+            System.out.println("Unsold tickets removed\n\n");
+
+        } catch (SQLException e) {
+            System.out.println("ERROR: An error occurred when deleting the tickets from session " + sessionID);
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
+            System.out.println(e);
+        }
+
+
     }
 
     private static boolean checkSessionExist(Statement pStatement, int sessionID) throws SQLException{
         int rowCount = 0;
-        boolean sessionExists = true;
+        boolean sessionExists = false;
         try {
             String selectSQL = "SELECT COUNT(*) FROM Ticket WHERE sId = " + sessionID;
             var resultSet = pStatement.executeQuery(selectSQL);
@@ -44,6 +58,11 @@ public class DeleteUnsoldTickets {
         }
         catch (SQLException e){
             System.out.println("ERROR: An error occurred when fetching the session ids.");
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
+            System.out.println(e);
             return sessionExists;
         }
     }
@@ -52,7 +71,7 @@ public class DeleteUnsoldTickets {
         try {
             String querySQL = "SELECT barcode, sID, cID FROM Ticket WHERE sID = " + sessionID;
             java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
-            System.out.println("\n=========Session " + sessionID + " tickets sold=========\n");
+            System.out.println("\n=========Tickets sold for session " + sessionID + "=========\n");
             System.out.println("Barcode       |sID| cID \n________________________");
             while (rs.next()) {
                 String barcode = rs.getString(1);
@@ -64,28 +83,36 @@ public class DeleteUnsoldTickets {
         }
         catch (SQLException e){
             System.out.println("ERROR: An error occurred when fetching barcode, sID, cID from the Ticket table.");
-            return;
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
+            System.out.println(e);
         }
     }
 
-    private static int getSessionID(Statement pStatement, int sessionID) throws SQLException {
-        Scanner input = new Scanner(System.in);
-        String querySQL = "SELECT DISTINCT sId FROM ticket ORDER BY sId";
-        java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
-        System.out.println("=========Session IDs=========");
-        StringBuilder id = new StringBuilder("| ");
-        while (rs.next()) {
-            int sid = rs.getInt(1);
-            id.append(sid + " | ");
-        }
-        System.out.println(id);
-        System.out.println("Please enter the ID of the session you want to remove the unsold tickets from:");
+    private static void printSessionIDs(Statement pStatement) throws SQLException {
         try {
-            sessionID = input.nextInt();
-            return sessionID;
-        } catch (InputMismatchException e) {
-            System.out.println("ERROR: Invalid format for the session id.");
-            return 0;
+            String querySQL = "SELECT DISTINCT sId FROM ticket ORDER BY sId";
+            java.sql.ResultSet rs = pStatement.executeQuery(querySQL);
+            System.out.println("\n=========Session IDs=========");
+            String id = "| ";
+            while (rs.next()) {
+                int sid = rs.getInt(1);
+                id = id.concat(sid + " | ");
+            }
+            System.out.println(id);
+            if (id.equals("| ")){
+                System.out.println("\nNo sessions exist");
+            }
+            System.out.println("\nPlease enter the ID of the session you want to remove the unsold tickets from (or 'Q' to quit):");
         }
-   }
+        catch (SQLException e){
+            int sqlCode = e.getErrorCode();
+            String sqlState = e.getSQLState();
+
+            System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
+            System.out.println(e);
+        }
+    }
 }
