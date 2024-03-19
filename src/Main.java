@@ -29,13 +29,11 @@ class Main
         //$  export SOCSPASSWD=yoursocspasswd 
         if(your_userid == null && (your_userid = System.getenv("SOCSUSER")) == null)
         {
-            System.out.println(System.getenv("SOCSUSER"));
             System.err.println("Error!! do not have a password to connect to the database!");
             System.exit(1);
         }
         if(your_password == null && (your_password = System.getenv("SOCSPASSWD")) == null)
         {
-            System.out.println(System.getenv("SOCSPASSWD"));
             System.err.println("Error!! do not have a password to connect to the database!");
             System.exit(1);
         }
