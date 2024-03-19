@@ -6,7 +6,7 @@ public class PriceIncrease {
     private static void increasePrice(Statement pStatement, int priceIncrease) throws SQLException {
 
 
-        String update = "UPDATE product set price=price + " + priceIncrease + "from consumable where product.barcode=consumable.barcode;";
+        String update = "UPDATE product SET price=price + " + priceIncrease + " FROM consumable WHERE product.barcode=consumable.barcode;";
         int updateResult = pStatement.executeUpdate(update);
         if (updateResult > 0) {
             System.out.println("The price has been updated successfully!");
