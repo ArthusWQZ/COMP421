@@ -4,12 +4,12 @@ import java.sql.* ;
 import java.util.Scanner;
 
 public class CreateSession {
-    public static void insertSessions(Connection pCon, int sid, Date date, String time, String lang, String sub, int tid, int roomNum, int mid) throws SQLException {
+    public static void insertSessions(Connection pCon, int sid, Date date, Time time, String lang, String sub, int tid, int roomNum, int mid) throws SQLException {
         String queryString = "INSERT INTO sessions VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = pCon.prepareStatement(queryString);
         preparedStatement.setInt(1, sid);
         preparedStatement.setDate(2, date);
-        preparedStatement.setString(3, time);
+        preparedStatement.setTime(3, time);
         preparedStatement.setString(4, lang);
         preparedStatement.setString(5, sub);
         preparedStatement.setInt(6, tid);
@@ -21,7 +21,7 @@ public class CreateSession {
     public static void execute(Connection pCon, Statement pStatement){
         Scanner input = new Scanner(System.in);
         Date date;
-        String time;
+        Time time;
         String lang;
         String sub;
         int tid;
@@ -32,8 +32,8 @@ public class CreateSession {
         try{
             System.out.println("Please enter the start date (YYYY-MM-DD)");
             date = Date.valueOf(input.nextLine());
-            System.out.println("Please enter the start time (HH:MM)");
-            time = input.nextLine();
+            System.out.println("Please enter the start time (HH:MM:SS)");
+            time = Time.valueOf(input.nextLine());
             System.out.println("Please enter the language of the movie");
             lang = input.nextLine();
             System.out.println("Does the movie has subtitle? (yes/no)");
