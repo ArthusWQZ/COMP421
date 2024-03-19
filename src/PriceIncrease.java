@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class PriceIncrease {
 
-    private static void increasePrice(Statement pStatement, String priceIncrease) throws SQLException {
+    private static void increasePrice(Statement pStatement, int priceIncrease) throws SQLException {
 
 
         String update = "UPDATE product set price=price + " + priceIncrease + "from consumable where product.barcode=consumable.barcode;";
