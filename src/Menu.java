@@ -29,12 +29,16 @@ public class Menu {
       option = input.nextLine();
       switch (option) {
         case "1":
+          CreateSession.execute(aCon, aStatement);
           break;
         case "2":
+          DeleteUnsoldTickets.execute(aStatement);
           break;
         case "3":
+          CreateMovie.execute(aCon, aStatement);
           break;
         case "4":
+          RemoveSession.execute(aStatement);
           break;
         case "5":
           AssignTicket.execute(aStatement);
