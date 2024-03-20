@@ -37,7 +37,7 @@ public class Menu {
         case "4":
           break;
         case "5":
-          assignTicket.execute(aStatement);
+          AssignTicket.execute(aStatement);
           break;
         case "6":
           PriceIncrease.execute(aStatement);
