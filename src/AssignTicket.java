@@ -15,6 +15,15 @@ public class AssignTicket {
         }
     }
 
+    public static int checkBarcode(Statement pStatement, long barcode) throws SQLException {
+
+
+        String query = "SELECT COUNT(*) FROM ticket WHERE barcode = " + barcode;
+        ResultSet rs = pStatement.executeQuery(query);
+        int result = rs.getInt(1);
+        return result;
+    }
+
     public static void execute(Statement pStatement) {
         System.out.println("Please enter the ticket's barcode: ");
         String option;
@@ -26,6 +35,10 @@ public class AssignTicket {
         long code;
         try {
             code = Long.parseLong(option);
+            if (checkBarcode(pStatement, code) == 0) {
+                System.out.println("Ticket barcode invalid!");
+                return;
+            }
         }
         catch (Exception e) {
             System.out.println("Invalid ticket barcode!");
