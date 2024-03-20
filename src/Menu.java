@@ -41,6 +41,7 @@ public class Menu {
           RemoveSession.execute(aStatement);
           break;
         case "5":
+          AssignTicket.execute(aStatement);
           break;
         case "6":
           PriceIncrease.execute(aStatement);
