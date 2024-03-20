@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class AssignTicket {
 
-    public static void assignTicket(Statement pStatement, int barcode, int cID) throws SQLException {
+    public static void assignTicket(Statement pStatement, long barcode, int cID) throws SQLException {
 
         String query = "UPDATE ticket SET cid = " + cID + " WHERE barcode = " + barcode + ";";
         int rs = pStatement.executeUpdate(query);
@@ -23,15 +23,17 @@ public class AssignTicket {
 
         if (option.equalsIgnoreCase("q")) return;
 
-        int code;
+        long code;
         try {
-            code = Integer.parseInt(option);
+            code = Long.parseLong(option);
         }
         catch (Exception e) {
             System.out.println("Invalid ticket barcode!");
+            System.out.println(e);
             return;
         }
 
+        System.out.println("Please enter the customer id: ");
         option = input.nextLine();
         if (option.equalsIgnoreCase("q")) return;
 
