@@ -18,7 +18,7 @@ public class PriceIncrease {
 
     public static void execute(Statement pStatement) {
 
-        System.out.println("By how much should the price for consumables be increased? \n>");
+        System.out.println("By how much should the price for consumables be increased?");
         String option;
         Scanner input = new Scanner(System.in);
         option = input.nextLine();
