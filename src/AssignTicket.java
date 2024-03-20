@@ -17,11 +17,24 @@ public class AssignTicket {
 
     public static int checkBarcode(Statement pStatement, long barcode) throws SQLException {
 
-
         String query = "SELECT COUNT(*) FROM ticket WHERE barcode = " + barcode;
         ResultSet rs = pStatement.executeQuery(query);
-        int result = rs.getInt(1);
-        return result;
+        if (rs.next()) {
+            return rs.getInt(1);
+        } else {
+           return 0;
+        }
+    }
+
+    public static int checkCustomerID(Statement pStatement, int custid) throws SQLException {
+
+        String query = "SELECT COUNT(*) FROM ticket WHERE cid = " + custid;
+        ResultSet rs = pStatement.executeQuery(query);
+        if (rs.next()) {
+            return rs.getInt(1);
+        } else {
+            return 0;
+        }
     }
 
     public static void execute(Statement pStatement) {
@@ -42,7 +55,7 @@ public class AssignTicket {
         }
         catch (Exception e) {
             System.out.println("Invalid ticket barcode!");
-            System.out.println(e);
+            /*System.out.println(e);*/
             return;
         }
 
@@ -53,6 +66,10 @@ public class AssignTicket {
         int cust;
         try {
             cust = Integer.parseInt(option);
+            if (checkCustomerID(pStatement, cust) == 0) {
+                System.out.println("Customer ID is invalid!");
+                return;
+            }
         }
         catch (Exception e) {
             System.out.println("Invalid customer ID!");
