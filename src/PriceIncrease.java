@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class PriceIncrease {
 
-    private static void increasePrice(Statement pStatement, int priceIncrease) throws SQLException {
+    private static void increasePrice(Statement pStatement, float priceIncrease) throws SQLException {
 
 
         String update = "UPDATE product SET price=price + " + priceIncrease + " FROM consumable WHERE product.barcode=consumable.barcode;";
@@ -25,9 +25,9 @@ public class PriceIncrease {
 
         if (option.equalsIgnoreCase("q")) return;
 
-        int pi;
+        float pi;
         try {
-            pi = Integer.parseInt(option);
+            pi = Float.parseFloat(option);
         }
         catch (Exception e) {
             System.out.println("Invalid price increase");
