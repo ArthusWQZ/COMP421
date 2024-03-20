@@ -95,7 +95,6 @@ public class RemoveSession {
         catch (SQLException e)
         {
             System.out.println("ERROR: An error occurred when fetching the projection room list.");
-            System.out.println("Double check the given theater id.");
             int sqlCode = e.getErrorCode();
             String sqlState = e.getSQLState();
             System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
@@ -120,7 +119,6 @@ public class RemoveSession {
         catch (SQLException e)
         {
             System.out.println("ERROR: An error occurred when fetching the session list.");
-            System.out.println("Double check the room number.");
             int sqlCode = e.getErrorCode();
             String sqlState = e.getSQLState();
             System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
@@ -157,7 +155,6 @@ public class RemoveSession {
         catch (SQLException e)
         {
             System.out.println("ERROR: An error occurred when removing the session.");
-            System.out.println("Double check the session ID.");
             int sqlCode = e.getErrorCode();
             String sqlState = e.getSQLState();
             System.out.println("Code: " + sqlCode + "  sqlState: " + sqlState);
