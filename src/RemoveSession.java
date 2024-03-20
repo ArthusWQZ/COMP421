@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class RemoveSessionForMovie {
+public class RemoveSession {
 
     private static void printTheaterList(Statement pStatement) throws SQLException {
         String querySQL = "SELECT tid, name FROM theater ORDER BY tid";
